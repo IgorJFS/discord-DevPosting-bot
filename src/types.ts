@@ -6,22 +6,29 @@ dotenv.config();
 
 const commands = [
   new SlashCommandBuilder()
-    .setName("vagas")
+    .setName("jobs")
     .setDescription("Shows the most recent remote developer jobs"),
+  new SlashCommandBuilder()
+    .setName("clear")
+    .setDescription("Clears all bot messages from the jobs channel"),
+  new SlashCommandBuilder()
+    .setName("trigger-jobs")
+    .setDescription("Manually triggers job posting"),
 ].map(command => command.toJSON());
 
 const rest = new REST({ version: "10" }).setToken(process.env.BOT_TOKEN as string);
 
 (async () => {
   try {
-    console.log("💾 Registrando comandos slash...");
+    console.log("💾 Registering new (/) commands...");
 
     await rest.put(
       Routes.applicationCommands(process.env.CLIENT_ID as string),
       { body: commands }
     );
 
-    console.log(chalk.green("✅ Comandos registrados com sucesso!"));
+    console.log(chalk.green("✅ (/) Commands registered successfully!"));
   } catch (error) {
-    console.error(chalk.red("Erro ao registrar comandos:", error));
-  }})();
+    console.error(chalk.red("⛔ Error registering the new commands", error));
+  }
+})();

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { reportarErro } from '../errorHandler/error';
+import { reportError } from '../errorHandler/error';
 import { Client } from 'discord.js';
 
 type Job = {
@@ -27,11 +27,11 @@ export async function fetchRemoteJobs(client?: Client): Promise<Job[]> {
             requirements: job.tags || [], // normalmente tecnologias vêm nos "tags"
         }));
     } catch (error) {
-        console.error('Erro ao buscar vagas:', error);
+        console.error('Error fetchings Job Posts:', error);
         
         // Report error to Discord if client is available
         if (client) {
-            await reportarErro(error, client);
+            await reportError(error, client);
         }
         
         return [];

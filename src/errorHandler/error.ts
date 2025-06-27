@@ -1,8 +1,8 @@
 import { Client } from 'discord.js';
 import axios from 'axios';
 
-export async function reportarErro(error: unknown, client?: Client) {
-  const webhookUrl = "https://discord.com/api/webhooks/1382445464963780669/KNw-iwTpiL5O8Yew64E5cukYHV8LxiHG2cpX3NFCGGrRg4cROHaYNh3_TYlnBAJ_jbnX";
+export async function reportError(error: unknown, client?: Client) {
+  const webhookUrl = process.env.BOT_ERROR_WEBHOOK_URL;
   
   try {
     const errorMessage = error instanceof Error ? error.message : String(error);
@@ -33,6 +33,10 @@ export async function reportarErro(error: unknown, client?: Client) {
       ]
     };
 
+    if (!webhookUrl) {
+  console.warn('Webhook URL Undefined.');
+  return;
+}
     await axios.post(webhookUrl, payload);
   } catch (reportingError) {
     console.error('Failed to report error to Discord webhook:', reportingError);

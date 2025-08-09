@@ -21,7 +21,7 @@ A robust, modular Discord bot for fetching and posting IT/developer job listings
 1. **Clone the repository:**
 
    ```bash
-   git clone <your-repo-url>
+   git clone https://github.com/IgorJFS/discord-DevPosting-bot.git
    cd Bot-discord
    ```
 
